@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="nb" data-lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WoodArc – CNC-fresing og treprodukter i Bergen</title>
+<meta name="description" content="WoodArc lager skilt, sjakkbrikker, skjærefjøler og spesialtilpassede deler i tre med CNC-fres i Bergen.">
+<meta property="og:title" content="WoodArc – CNC-fresing og treprodukter i Bergen">
+<meta property="og:description" content="Skilt, sjakkbrikker, skjærefjøler og spesialdeler i tre, laget på bestilling i Bergen.">
+<meta property="og:image" content="https://woodarc.no/img/chess-full-set.jpg">
+<meta property="og:url" content="https://woodarc.no/">
+<meta property="og:type" content="website">
+<link rel="icon" href="img/symbol.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:Montserrat;src:url(fonts/montserrat-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:Montserrat;src:url(fonts/montserrat-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:Montserrat;src:url(fonts/montserrat-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:Montserrat;src:url(fonts/montserrat-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
+
+:root{
+  --walnut:#2B2420;   /* brand dark brown – text, dark bands */
+  --oak:#B07A45;      /* brand oak – accent */
+  --cream:#F4EFE6;    /* brand cream – page */
+  --sawdust:#E8DCC8;  /* panels behind design drawings */
+  --fjord:#34505E;    /* links, secondary */
+  --muted:#6B5D52;
+  --measure:62ch;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--cream);color:var(--walnut);font:400 17px/1.6 Montserrat,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--fjord);text-underline-offset:3px}
+a:hover{color:var(--walnut)}
+:focus-visible{outline:3px solid var(--oak);outline-offset:3px;border-radius:4px}
+
+/* language switching */
+html[data-lang="nb"] [lang="en"],html[data-lang="en"] [lang="nb"]{display:none!important}
+
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+
+/* header */
+.top{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.brand img{height:72px;width:auto}
+.top nav{display:flex;align-items:center;gap:26px;font-weight:500;font-size:15px}
+.top nav a{color:var(--walnut);text-decoration:none}
+.top nav a:hover{color:var(--oak)}
+.langbtn{font:600 14px Montserrat,sans-serif;color:var(--walnut);background:transparent;border:1.5px solid var(--walnut);border-radius:999px;padding:7px 16px;cursor:pointer}
+.langbtn:hover{background:var(--walnut);color:var(--cream)}
+@media (max-width:760px){.top nav a{display:none}.brand img{height:56px}}
+
+/* hero: the one bold move – an oak arch framing the work */
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:64px;align-items:center;padding:32px 0 88px}
+.hero h1{font-weight:700;font-size:clamp(38px,5.4vw,68px);line-height:1.04;letter-spacing:-.02em;margin:0 0 26px;max-width:12ch}
+.hero p{font-size:19px;color:var(--muted);max-width:44ch;margin:0 0 34px}
+.btn{display:inline-block;background:var(--walnut);color:var(--cream);text-decoration:none;font-weight:600;padding:15px 28px;border-radius:999px}
+.btn:hover{background:var(--oak);color:var(--walnut)}
+.arch{position:relative;padding:14px 14px 0;background:var(--oak);border-radius:999px 999px 0 0}
+.arch img{border-radius:999px 999px 0 0;aspect-ratio:4/5;object-fit:cover;width:100%;height:auto;object-position:45% 60%}
+.hero-cap{font-size:14px;color:var(--muted);margin-top:12px}
+@media (max-width:860px){.hero{grid-template-columns:1fr;gap:36px;padding-bottom:64px}.arch{max-width:420px}}
+
+/* sections */
+section{padding:88px 0;border-top:1px solid #DCCDB6}
+.intro{display:grid;grid-template-columns:1fr 1.4fr;gap:56px;margin-bottom:44px;align-items:start}
+h2{font-weight:700;font-size:clamp(30px,3.6vw,44px);line-height:1.1;letter-spacing:-.015em;margin:0}
+.intro p{margin:0 0 14px;max-width:var(--measure)}
+.note{font-size:15px;color:var(--muted)}
+@media (max-width:860px){.intro{grid-template-columns:1fr;gap:16px}}
+
+/* signs: design drawings on sawdust panels, sized by their real proportions */
+.signs{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.signs figure{margin:0;background:var(--sawdust);border-radius:14px;padding:26px 22px 16px;display:flex;flex-direction:column}
+.signs figure img{margin:auto;max-height:230px;object-fit:contain}
+.signs figcaption{margin-top:16px;font-size:14px;display:flex;justify-content:space-between;gap:10px;color:var(--muted)}
+.signs figcaption b{color:var(--walnut);font-weight:600}
+.s-wide{grid-column:span 3}.s-std{grid-column:span 2}
+@media (max-width:900px){.signs{grid-template-columns:repeat(2,1fr)}.s-wide,.s-std{grid-column:span 1}.signs .s-full{grid-column:span 2}}
+@media (max-width:560px){.signs{grid-template-columns:1fr}.signs figure,.signs .s-full{grid-column:span 1}}
+
+/* chess */
+.chess{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.chess img{border-radius:14px;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+.chess .tall{grid-row:span 2}
+@media (max-width:760px){.chess{grid-template-columns:1fr}.chess .tall{grid-row:auto}}
+
+/* boards placeholder */
+.pending{border:2px dashed #CBB89B;border-radius:14px;padding:40px;display:flex;gap:28px;align-items:center;color:var(--muted)}
+.pending img{width:72px;opacity:.85}
+
+/* custom work */
+.work{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-top:30px}
+.work h3{font-size:19px;font-weight:600;margin:0 0 8px;padding-top:16px;border-top:3px solid var(--oak)}
+.work p{margin:0;color:var(--muted);font-size:16px}
+@media (max-width:560px){.work{grid-template-columns:1fr;gap:26px}}
+
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:36px;counter-reset:st}
+.steps li{counter-increment:st;position:relative;padding-top:56px}
+.steps li::before{content:counter(st);position:absolute;top:0;left:0;width:40px;height:40px;border-radius:50%;background:var(--oak);color:var(--walnut);font-weight:700;display:grid;place-items:center}
+.steps h3{font-size:19px;font-weight:600;margin:0 0 8px}
+.steps p{margin:0;color:var(--muted);font-size:16px}
+@media (max-width:860px){.steps{grid-template-columns:1fr;gap:28px}}
+/* contact band */
+.contact{background:var(--walnut);color:var(--cream);border:0;padding:96px 0}
+.contact h2{color:var(--cream);margin-bottom:20px}
+.contact p{max-width:var(--measure);color:#D9CCBA}
+.contact .mail{display:inline-block;font-weight:600;font-size:clamp(22px,3vw,34px);color:var(--cream);text-decoration-color:var(--oak);text-decoration-thickness:3px;margin:12px 0 30px;word-break:break-word}
+.contact .mail:hover{color:var(--oak)}
+.facts{display:flex;flex-wrap:wrap;gap:12px 40px;font-size:15px;color:#BFAF99}
+.facts a{color:#E9DCC7}
+footer{background:var(--walnut);color:#A8977F;font-size:13px;padding:0 0 36px}
+footer .wrap{border-top:1px solid #4A3F37;padding-top:22px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#" aria-label="WoodArc"><img src="img/logo.svg" alt="WoodArc"></a>
+    <nav aria-label="Hovedmeny">
+      <a href="#skilt"><span lang="nb">Skilt</span><span lang="en">Signs</span></a>
+      <a href="#sjakk"><span lang="nb">Sjakk</span><span lang="en">Chess</span></a>
+      <a href="#fjoler"><span lang="nb">Skjærefjøler</span><span lang="en">Cutting boards</span></a>
+      <a href="#om"><span lang="nb">Om</span><span lang="en">About</span></a>
+      <a href="#kontakt"><span lang="nb">Kontakt</span><span lang="en">Contact</span></a>
+      <button class="langbtn" id="langbtn" type="button" aria-label="Switch language / Bytt språk"><span lang="nb">English</span><span lang="en">Norsk</span></button>
+    </nav>
+  </header>
+
+  <main>
+  <div class="hero">
+    <div>
+      <h1><span lang="nb">Treprodukter fra et lite CNC-verksted i Bergen</span><span lang="en">Wood made to order in a small CNC workshop in Bergen</span></h1>
+      <p><span lang="nb">Skilt, sjakkbrikker, skjærefjøler og spesialdeler i eik, bøk og furu – tegnet, frest og ferdigbehandlet for hånd.</span><span lang="en">Signs, chess pieces, cutting boards and one-off parts in oak, beech and pine – designed, machined and finished by hand.</span></p>
+      <a class="btn" href="#kontakt"><span lang="nb">Be om pris</span><span lang="en">Ask for a price</span></a>
+    </div>
+    <div>
+      <div class="arch"><img src="img/chess-king.jpg" alt="Springer i bøk, frest på CNC" width="933" height="1400"></div>
+      <div class="hero-cap"><span lang="nb">Springer fra sjakksettet.</span><span lang="en">Knight from the chess set.</span></div>
+    </div>
+  </div>
+  </main>
+</div>
+
+<section id="skilt">
+  <div class="wrap">
+    <div class="intro">
+      <h2><span lang="nb">Skilt</span><span lang="en">Signs</span></h2>
+      <div>
+        <p><span lang="nb">Navneskilt, husnummer og hytteskilt i eik eller malmfuru. Alle designene kan tilpasses med ditt navn, nummer eller sted, i liten eller stor størrelse.</span><span lang="en">Name signs, house numbers and cabin signs in oak or pine heartwood. Every design can be changed to your name, number or place, in a small or large size.</span></p>
+        <p class="note"><span lang="nb">Dette er designtegninger. Bilder av ferdige skilt kommer etter hvert som prøvene blir laget.</span><span lang="en">These are design drawings. Photos of finished signs will be added as the samples are made.</span></p>
+      </div>
+    </div>
+    <div class="signs">
+      <figure class="s-wide"><img src="img/sign-fjellro.png" alt="Hytteskilt Fjellro med fjell og grantrær" loading="lazy"><figcaption><b>Fjellro</b><span>300 × 161 mm</span></figcaption></figure>
+      <figure class="s-wide"><img src="img/sign-familien-berg.png" alt="Familieskilt med Bryggen-hus" loading="lazy"><figcaption><b><span lang="nb">Familien Berg</span><span lang="en">Family sign</span></b><span>260 × 178 mm</span></figcaption></figure>
+      <figure class="s-std"><img src="img/sign-huset-vart.png" alt="Rundt skilt Huset vårt" loading="lazy"><figcaption><b>Huset vårt</b><span>Ø 200 mm</span></figcaption></figure>
+      <figure class="s-std"><img src="img/sign-sjoro.png" alt="Ovalt skilt Sjøro med seilbåt" loading="lazy"><figcaption><b>Sjøro</b><span>175 × 100 mm</span></figcaption></figure>
+      <figure class="s-std"><img src="img/sign-monogram.png" alt="Familieskilt med monogram" loading="lazy"><figcaption><b>Monogram</b><span>263 × 178 mm</span></figcaption></figure>
+      <figure class="s-wide"><img src="img/sign-house-number.png" alt="Husnummerskilt 27 Solbakken" loading="lazy"><figcaption><b><span lang="nb">Husnummer</span><span lang="en">House number</span></b><span>300 × 100 mm</span></figcaption></figure>
+      <figure class="s-wide"><img src="img/sign-fjordglott.png" alt="Skilt Fjordgløtt med fjordlinjer" loading="lazy"><figcaption><b>Fjordgløtt</b><span>204 × 100 mm</span></figcaption></figure>
+      <figure class="s-wide"><img src="img/sign-kids.png" alt="Dørskilt for barnerom med to navn" loading="lazy"><figcaption><b><span lang="nb">Barnerom</span><span lang="en">Kids' door sign</span></b><span>260 × 110 mm</span></figcaption></figure>
+      <figure class="s-wide s-full"><img src="img/sign-ornate.png" alt="Navneskilt med ornamentert forbokstav" loading="lazy"><figcaption><b><span lang="nb">Navneskilt med ornament</span><span lang="en">Ornate name sign</span></b><span>260 × 101 mm</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="sjakk">
+  <div class="wrap">
+    <div class="intro">
+      <h2><span lang="nb">Sjakkbrikker</span><span lang="en">Chess pieces</span></h2>
+      <div>
+        <p><span lang="nb">Et komplett sjakksett i bøk, frest fra begge sider og beiset mørkt for de svarte brikkene. Settet viser hvor fine detaljer verkstedet klarer – og kan lages på bestilling.</span><span lang="en">A full chess set in beech, machined from both sides, with the black pieces dyed dark. It shows the level of detail the workshop can reach, and can be made to order.</span></p>
+      </div>
+    </div>
+    <div class="chess">
+      <img src="img/chess-full-set.jpg" alt="Komplett sjakksett i lys og mørk bøk" loading="lazy" width="1400" height="933">
+      <img src="img/chess-mixed.jpg" alt="Utvalg av sjakkbrikker i lys og mørk bøk" loading="lazy" width="1400" height="933">
+    </div>
+  </div>
+</section>
+
+<section id="fjoler">
+  <div class="wrap">
+    <div class="intro">
+      <h2><span lang="nb">Skjærefjøler</span><span lang="en">Cutting boards</span></h2>
+      <div>
+        <p><span lang="nb">Skjærefjøler i eik med frest grep og avrundede kanter, behandlet med matsikker olje. Kan lages med navn eller logo.</span><span lang="en">Oak cutting boards with machined grips and rounded edges, finished with food-safe oil. Can be made with a name or logo.</span></p>
+      </div>
+    </div>
+    <div class="pending">
+      <img src="img/symbol.svg" alt="">
+      <p><span lang="nb">Bilder kommer snart.</span><span lang="en">Photos coming soon.</span></p>
+    </div>
+  </div>
+</section>
+
+<section id="spesial">
+  <div class="wrap">
+    <div class="intro">
+      <h2><span lang="nb">Spesialbestillinger</span><span lang="en">Custom work</span></h2>
+      <div><p><span lang="nb">Har du en idé eller en tegning? Verkstedet lager også ting som ikke står her.</span><span lang="en">Have an idea or a drawing? The workshop also makes things that aren't shown here.</span></p>
+    <div class="work">
+      <div><h3><span lang="nb">Detaljer til gamle hus</span><span lang="en">Details for old houses</span></h3><p><span lang="nb">Rosetter, hjørneklosser og utskårne lister til dør- og vindusomramminger.</span><span lang="en">Rosettes, corner blocks and carved trim for door and window surrounds.</span></p></div>
+      <div><h3><span lang="nb">Enkeltdeler</span><span lang="en">One-off parts</span></h3><p><span lang="nb">Deler, maler og jigger i tre, plast eller skum etter din tegning.</span><span lang="en">Parts, templates and jigs in wood, plastic or foam from your drawing.</span></p></div>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="om">
+  <div class="wrap">
+    <div class="intro">
+      <h2><span lang="nb">Om verkstedet</span><span lang="en">About the workshop</span></h2>
+      <div>
+        <p><span lang="nb">WoodArc er et design- og CNC-verksted i Bergen, drevet av en ingeniør med bakgrunn fra produksjon.</span><span lang="en">WoodArc is a design and CNC workshop in Bergen, run by an engineer with a background in manufacturing.</span></p>
+      </div>
+    </div>
+    <ol class="steps">
+      <li><h3><span lang="nb">Tegning</span><span lang="en">Drawing</span></h3><p><span lang="nb">Du får en tegning med mål og pris som du godkjenner før noe blir frest.</span><span lang="en">You get a drawing with sizes and a price to approve before anything is cut.</span></p></li>
+      <li><h3><span lang="nb">Fresing</span><span lang="en">Machining</span></h3><p><span lang="nb">Delen freses ut av tre, plast eller skum på CNC-fresen.</span><span lang="en">The piece is cut from wood, plastic or foam on the CNC router.</span></p></li>
+      <li><h3><span lang="nb">Overflate</span><span lang="en">Finishing</span></h3><p><span lang="nb">Pussing, olje eller maling gjøres for hånd i verkstedet.</span><span lang="en">Sanding, oil or paint is done by hand in the workshop.</span></p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="wrap">
+    <h2><span lang="nb">Ta kontakt</span><span lang="en">Get in touch</span></h2>
+    <p><span lang="nb">Alt starter med en prat. Fortell hva du tenker på, så finner vi ut av det sammen.</span><span lang="en">Every piece starts with a conversation. Tell me what you're thinking, and we'll figure it out together.</span></p>
+    <a class="mail" href="mailto:woodarcdesign@gmail.com">woodarcdesign@gmail.com</a>
+    <div class="facts">
+      <span>WoodArc, Søreidgrend, Bergen</span>
+      <span><span lang="nb">Org.nr.</span><span lang="en">Org. no.</span> 938 798 745</span>
+      <span><span lang="nb">Digitale CNC-filer:</span><span lang="en">Digital CNC files:</span> <a href="https://www.etsy.com/shop/ReadyToMakeDesign"><span lang="nb">ReadyToMake på Etsy</span><span lang="en">ReadyToMake on Etsy</span></a></span>
+    </div>
+  </div>
+</section>
+<footer><div class="wrap">© 2026 WoodArc</div></footer>
+
+<script>
+(function(){
+  var root=document.documentElement, key='woodarc-lang';
+  function set(l){root.setAttribute('data-lang',l);root.setAttribute('lang',l);try{localStorage.setItem(key,l)}catch(e){}}
+  var q=new URLSearchParams(location.search).get('lang'), saved=null;
+  try{saved=localStorage.getItem(key)}catch(e){}
+  var nav=(navigator.language||'').toLowerCase();
+  var start=q||saved||(/^(nb|nn|no)/.test(nav)?'nb':'en');
+  set(start==='en'?'en':'nb');
+  document.getElementById('langbtn').addEventListener('click',function(){set(root.getAttribute('data-lang')==='nb'?'en':'nb')});
+})();
+</script>
+</body>
+</html>
