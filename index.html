@@ -41,14 +41,27 @@ html[data-lang="nb"] [lang="en"],html[data-lang="en"] [lang="nb"]{display:none!i
 .wrap{max-width:1160px;margin:0 auto;padding:0 28px}
 
 /* header */
-.top{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
-.brand img{height:72px;width:auto}
+.bar{position:sticky;top:0;z-index:50;background:var(--cream);border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
+.bar.scrolled{border-bottom-color:var(--sawdust);box-shadow:0 6px 18px -14px rgba(43,36,32,.45)}
+.top{position:relative;display:flex;align-items:center;justify-content:space-between;padding:22px 28px;transition:padding .2s}
+.bar.scrolled .top{padding-top:10px;padding-bottom:10px}
+.brand img{height:72px;width:auto;transition:height .2s}
+.bar.scrolled .brand img{height:46px}
+section,main{scroll-margin-top:84px}
 .top nav{display:flex;align-items:center;gap:26px;font-weight:500;font-size:15px}
 .top nav a{color:var(--walnut);text-decoration:none}
 .top nav a:hover{color:var(--oak)}
 .langbtn{font:600 14px Montserrat,sans-serif;color:var(--walnut);background:transparent;border:1.5px solid var(--walnut);border-radius:999px;padding:7px 16px;cursor:pointer}
 .langbtn:hover{background:var(--walnut);color:var(--cream)}
-@media (max-width:760px){.top nav a{display:none}.brand img{height:56px}}
+@media (max-width:760px){
+  .top{flex-wrap:wrap;row-gap:8px}
+  .brand img{height:52px}.bar.scrolled .brand img{height:38px}
+  .top nav{order:3;width:100%;gap:16px;font-size:13.5px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;padding-bottom:2px}
+  .top nav::-webkit-scrollbar{display:none}
+  .langbtn{position:absolute;right:28px;top:31px;transition:top .2s}
+  .bar.scrolled .langbtn{top:12px}
+  section,main{scroll-margin-top:110px}
+}
 
 /* hero: the one bold move – an oak arch framing the work */
 .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:64px;align-items:center;padding:32px 0 88px}
@@ -114,8 +127,7 @@ footer .wrap{border-top:1px solid #4A3F37;padding-top:22px}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
+<header class="bar" id="bar"><div class="wrap top">
     <a class="brand" href="#" aria-label="WoodArc"><img src="img/logo.svg" alt="WoodArc"></a>
     <nav aria-label="Hovedmeny">
       <a href="#skilt"><span lang="nb">Skilt</span><span lang="en">Signs</span></a>
@@ -125,7 +137,8 @@ footer .wrap{border-top:1px solid #4A3F37;padding-top:22px}
       <a href="#kontakt"><span lang="nb">Kontakt</span><span lang="en">Contact</span></a>
       <button class="langbtn" id="langbtn" type="button" aria-label="Switch language / Bytt språk"><span lang="nb">English</span><span lang="en">Norsk</span></button>
     </nav>
-  </header>
+  </div></header>
+<div class="wrap">
 
   <main>
   <div class="hero">
@@ -248,6 +261,9 @@ footer .wrap{border-top:1px solid #4A3F37;padding-top:22px}
   var nav=(navigator.language||'').toLowerCase();
   var start=q||saved||(/^(nb|nn|no)/.test(nav)?'nb':'en');
   set(start==='en'?'en':'nb');
+  var bar=document.getElementById('bar');
+  function onScroll(){bar.classList.toggle('scrolled',window.scrollY>8)}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
   document.getElementById('langbtn').addEventListener('click',function(){set(root.getAttribute('data-lang')==='nb'?'en':'nb')});
 })();
 </script>
