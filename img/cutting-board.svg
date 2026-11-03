@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" role="img"><title>Skjærefjøl i eik</title>
+<rect x="20" y="30" width="480" height="240" rx="34" fill="#B07A45" fill-opacity=".30" stroke="#2B2420" stroke-width="3"/>
+<g fill="none" stroke="#2B2420" stroke-opacity=".22" stroke-width="1.2">
+<path d="M40 70 C160 60 300 82 480 66"/><path d="M40 104 C180 94 320 116 480 100"/><path d="M40 138 C150 128 330 152 480 134"/>
+<path d="M40 172 C200 160 300 186 480 168"/><path d="M40 206 C170 196 320 220 480 202"/><path d="M40 238 C180 230 330 250 480 236"/>
+<ellipse cx="300" cy="150" rx="26" ry="9"/><ellipse cx="300" cy="150" rx="14" ry="4"/></g>
+<rect x="44" y="54" width="380" height="192" rx="18" fill="none" stroke="#2B2420" stroke-width="2" stroke-dasharray="1 0"/>
+<rect x="440" y="118" width="40" height="64" rx="20" fill="#FCFAF6" stroke="#2B2420" stroke-width="2.4"/>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 440" role="img"><title>Hylleknekt i tre</title>
+<defs><pattern id="g" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M0 7 Q7 3 14 7" fill="none" stroke="#2B2420" stroke-opacity=".12" stroke-width="1"/></pattern></defs>
+<!-- shelf -->
+<rect x="20" y="20" width="380" height="34" rx="3" fill="#B07A45" fill-opacity=".22" stroke="#2B2420" stroke-width="2.5"/>
+<!-- wall -->
+<line x1="20" y1="54" x2="20" y2="430" stroke="#2B2420" stroke-width="2" stroke-dasharray="6 6" stroke-opacity=".5"/>
+<!-- bracket outline -->
+<path d="M28 54 H330 C330 70 318 82 300 88 C262 100 262 140 236 160 C206 183 176 168 160 196 C144 224 168 252 140 280 C116 304 88 290 74 318 C64 340 76 366 60 392 C52 405 40 414 28 418 Z"
+ fill="#B07A45" fill-opacity=".30" stroke="#2B2420" stroke-width="3" stroke-linejoin="round"/>
+<path d="M28 54 H330 C330 70 318 82 300 88 C262 100 262 140 236 160 C206 183 176 168 160 196 C144 224 168 252 140 280 C116 304 88 290 74 318 C64 340 76 366 60 392 C52 405 40 414 28 418 Z" fill="url(#g)"/>
+<!-- inner cut-out: teardrop -->
+<path d="M70 96 H210 C214 118 196 132 176 138 C150 146 136 166 124 190 C110 218 98 236 70 246 Z" fill="#FCFAF6" stroke="#2B2420" stroke-width="2.4" stroke-linejoin="round"/>
+<!-- scroll circles -->
+<circle cx="92" cy="292" r="15" fill="#FCFAF6" stroke="#2B2420" stroke-width="2.2"/>
+<circle cx="92" cy="292" r="6" fill="#B07A45" stroke="#2B2420" stroke-width="1.4"/>
+<circle cx="250" cy="122" r="9" fill="#FCFAF6" stroke="#2B2420" stroke-width="2"/>
+<!-- screws -->
+<circle cx="40" cy="300" r="3.5" fill="#2B2420"/><circle cx="40" cy="370" r="3.5" fill="#2B2420"/>
+</svg>
