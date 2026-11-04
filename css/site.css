@@ -252,3 +252,11 @@ figcaption b{color:var(--ink);font-weight:600}
 .glass .go{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px;color:var(--amber);white-space:nowrap}
 @media (max-width:480px){.glass .go{display:none}}
 .feature .btns{margin-top:28px}
+
+/* mobile: show the knight first, smaller, so it's visible without scrolling */
+@media (max-width:900px){
+  .hero{padding-top:28px}
+  .hero .wrap{gap:28px}
+  .hero .showcase{order:-1;width:min(210px,52vw);margin:0 auto}
+  .hero .archframe{box-shadow:0 30px 50px -30px rgba(43,36,32,.6),0 0 0 1px rgba(43,36,32,.06)}
+}
