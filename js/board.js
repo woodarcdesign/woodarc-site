@@ -1,11 +1,11 @@
 /* WoodArc cutting board configurator: live drawing, price and order link.
    Prices and sizes live here — change them in one place. */
 (function(){
-  var PRICE={S:490,M:790,L:1090}, LOGO=200, OWN=300;
+  var PRICE={S:490,M:790,L:1090}, LOGO=200, OWN=60;
   var DIM={S:[30,20],M:[40,28],L:[50,30]}, DIA={S:25,M:32,L:40}, THICK='2,5';
   var T={
     form:{rekt:['Rektangel','Rectangle'],rund:['Rund','Round'],oval:['Oval','Oval'],egen:['Egen form','Your own shape']},
-    grep:{fing:['Fingergrep under, i begge ender','Finger grips underneath, both ends'],hull:['Hull til oppheng','Handle hole'],uten:['Uten grep','No grip']},
+    grep:{fing:['Fingergrep under, i begge ender','Finger grips underneath, both ends'],uten:['Uten grep','No grip']},
     renne:{ja:['Med saftrenne','With juice groove'],nei:['Uten saftrenne','Without juice groove']},
     tekst:{uten:['Uten tekst','No text'],navn:['Navn','Name'],logo:['Logo','Logo']},
     att:{egen:['Legg ved et bilde eller en tegning av formen du ønsker.','Attach a photo or drawing of the shape you want.'],logo:['Legg ved logoen som bilde.','Attach the logo as an image.']},
@@ -28,7 +28,7 @@
     c.navn=(p.get('tekst')||'').slice(0,18);
     return fix(c);
   }
-  function fix(c){if(c.form==='egen'&&c.grep==='fing')c.grep='hull';return c}
+  function fix(c){if(c.form==='egen'&&c.grep==='fing')c.grep='uten';return c}
   function code(c){return KEYS.map(function(k){return c[k]}).join('-')}
   function query(c){return 'valg='+code(c)+(c.tekst==='navn'&&c.navn?'&tekst='+encodeURIComponent(c.navn):'')}
   function dims(c){return c.form==='rund'?'Ø '+DIA[c.str]+' cm':DIM[c.str][0]+' × '+DIM[c.str][1]+' cm'}
@@ -82,7 +82,7 @@
   function draw(svg,c,side){
     var back=side==='back';
     while(svg.firstChild)svg.removeChild(svg.firstChild);
-    var W=400,H=290,k=6.4;
+    var W=400,H=290,k=5.6;
     var wcm=c.form==='rund'?DIA[c.str]:DIM[c.str][0], hcm=c.form==='rund'?DIA[c.str]:DIM[c.str][1];
     var w=wcm*k,h=hcm*k,x=(W-w)/2,y=(H-h)/2, cm=k;
     var id='b'+Math.random().toString(36).slice(2,7);
@@ -95,7 +95,7 @@
     var g=el('g',{'clip-path':'url(#'+id+')',stroke:'#B9884F','stroke-width':1,fill:'none',opacity:.55},svg);
     for(var i=1;i<9;i++){var yy=y+h*i/9;el('path',{d:'M'+x+' '+yy+' C '+(x+w*.3)+' '+(yy-4)+', '+(x+w*.6)+' '+(yy+5)+', '+(x+w)+' '+(yy-2)},g)}
     var cut={fill:'none',stroke:'#7A4E22','stroke-width':2.2};
-    var endIn=(c.grep==='hull'?4.4:1.7)*cm, sideIn=1.7*cm;
+    var endIn=1.7*cm, sideIn=1.7*cm;
     // juice groove
     if(c.renne==='ja'&&!back){
       if(c.form==='egen')el('ellipse',Object.assign({cx:x+w*.40,cy:y+h*.49,rx:w*.29,ry:h*.30},cut),svg);
@@ -110,20 +110,21 @@
       var lx=x, rx=x+w;
       el('path',Object.assign({d:'M'+(lx-2)+' '+(cy0-gh/2)+' C '+(lx+d*1.25)+' '+(cy0-gh/2)+', '+(lx+d*1.25)+' '+(cy0+gh/2)+', '+(lx-2)+' '+(cy0+gh/2)+' Z'},pk),svg);
       el('path',Object.assign({d:'M'+(rx+2)+' '+(cy0-gh/2)+' C '+(rx-d*1.25)+' '+(cy0-gh/2)+', '+(rx-d*1.25)+' '+(cy0+gh/2)+', '+(rx+2)+' '+(cy0+gh/2)+' Z'},pk),svg);
-    } else if(c.grep==='hull'){
-      var hx=c.form==='egen'?x+w*.77:x+w-2.6*cm, hy=y+h/2;
-      el('circle',{cx:hx,cy:hy,r:1.2*cm,fill:'#FBF8F3',stroke:'#7A4E22','stroke-width':1.6},svg);
     }
-    // text / logo
-    if(back){}
-    else if(c.tekst==='navn'){
-      var t=c.navn||(lang()?'Name':'Navn'), fs=Math.min(2.6*cm,(w*.55)/Math.max(3,t.length)*1.7);
-      var tx=el('text',{x:x+w/2-(c.form==='egen'?w*.10:0),y:y+h/2+fs*.35,'text-anchor':'middle','font-family':'Georgia,serif','font-size':fs,fill:'#6B4320',opacity:c.navn?.95:.45},svg);
+    // text / logo: kept out of the main cutting area (bottom-right corner on rectangles, bottom on round/oval/own)
+    if(back)return;
+    var ax,ay,anc,room;
+    if(c.form==='rekt'){ax=x+w-3*cm;ay=y+h-3*cm;anc='end';room=w*.55}
+    else if(c.form==='egen'){ax=x+w*.40;ay=y+h*.74;anc='middle';room=w*.32}
+    else{ax=x+w/2;ay=y+h-(c.form==='rund'?4.2:3.6)*cm;anc='middle';room=w*(c.form==='rund'?.45:.45)}
+    if(c.tekst==='navn'){
+      var t=c.navn||(lang()?'Name':'Navn'), fs=Math.min(2.8*cm,room/Math.max(3,t.length)*1.75);
+      var tx=el('text',{x:ax,y:ay,'text-anchor':anc,'font-family':'Georgia,serif','font-size':fs,fill:'#6B4320',opacity:c.navn?.95:.45},svg);
       tx.textContent=t;
     } else if(c.tekst==='logo'){
-      var r=3*cm, cx=x+w/2-(c.form==='egen'?w*.10:0), cy=y+h/2, pts=[];
+      var r=2*cm, cx=anc==='end'?ax-r:ax, cy=ay-r*.7, pts=[];
       for(var j=0;j<10;j++){var a=-Math.PI/2+j*Math.PI/5, rr=j%2?r*.45:r;pts.push((cx+rr*Math.cos(a)).toFixed(1)+','+(cy+rr*Math.sin(a)).toFixed(1))}
-      el('polygon',{points:pts.join(' '),fill:'none',stroke:'#6B4320','stroke-width':2},svg);
+      el('polygon',{points:pts.join(' '),fill:'none',stroke:'#6B4320','stroke-width':1.8},svg);
     }
   }
 
@@ -133,7 +134,7 @@
   var form=document.getElementById('cfg');
   if(!form)return;
   var svg=document.getElementById('cfg-svg'), sum=document.getElementById('cfg-sum'), pr=document.getElementById('cfg-price'),
-      go=document.getElementById('cfg-go'), nameWrap=document.getElementById('cfg-navn-wrap'), nameIn=document.getElementById('cfg-navn'), backFig=document.getElementById('cfg-back'), backSvg=document.getElementById('cfg-svg-back'), att=document.getElementById('cfg-attach');
+      go=document.getElementById('cfg-go'), nameWrap=document.getElementById('cfg-navn-wrap'), nameIn=document.getElementById('cfg-navn'), backFig=document.getElementById('cfg-back'), backSvg=document.getElementById('cfg-svg-back'), att=document.getElementById('cfg-attach'), bar=document.getElementById('cfg-bar'), barGo=document.getElementById('cfg-bar-go'), barTxt=document.getElementById('cfg-bar-txt');
   var c=parse();
   function read(){
     KEYS.forEach(function(k){var r=form.querySelector('input[name="'+k+'"]:checked');if(r)c[k]=r.value});
@@ -147,11 +148,18 @@
     form.querySelectorAll('[data-dim]').forEach(function(s){var z=s.getAttribute('data-dim');s.textContent=c.form==='rund'?'Ø '+DIA[z]+' cm':DIM[z][0]+' × '+DIM[z][1]+' cm'});
     draw(svg,c); backFig.hidden=c.grep!=='fing'; if(c.grep==='fing')draw(backSvg,c,'back'); sum.innerHTML=summaryHTML(c); pr.innerHTML=priceHTML(c); att.innerHTML=attachHTML(c);
     go.href='../bestill/?hva=skjaerefjoler&'+query(c);
+    if(bar){barGo.href=go.href;barTxt.innerHTML='<b>'+priceHTML(c)+'</b><span>'+c.str+' · '+both(T.form[c.form])+'</span>'}
     try{history.replaceState(null,'','?'+query(c)+location.hash)}catch(e){}
   }
   nameIn.value=c.navn;
   form.addEventListener('change',read); nameIn.addEventListener('input',read);
   document.querySelectorAll('[data-l]').forEach(function(b){b.addEventListener('click',function(){draw(svg,c);if(c.grep==='fing')draw(backSvg,c,'back')})});
   write();
+  if(bar&&'IntersectionObserver' in window){
+    var inSec=false, prevVis=false, upd=function(){bar.classList.toggle('show',inSec&&!prevVis)};
+    new IntersectionObserver(function(e){inSec=e[0].isIntersecting;upd()}).observe(document.getElementById('velg'));
+    new IntersectionObserver(function(e){prevVis=e[0].isIntersecting;upd()},{threshold:.15}).observe(document.querySelector('.cfg-preview'));
+    barTxt.addEventListener('click',function(){document.querySelector('.cfg-preview').scrollIntoView({behavior:'smooth',block:'center'})});
+  }
   if(new URLSearchParams(location.search).get('valg')&&location.hash==='#velg'){var s=document.getElementById('velg');if(s)setTimeout(function(){s.scrollIntoView()},50)}
 })();
