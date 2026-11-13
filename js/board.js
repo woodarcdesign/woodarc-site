@@ -122,9 +122,9 @@
       var tx=el('text',{x:ax,y:ay,'text-anchor':anc,'font-family':'Georgia,serif','font-size':fs,fill:'#6B4320',opacity:c.navn?.95:.45},svg);
       tx.textContent=t;
     } else if(c.tekst==='logo'){
-      var r=2*cm, cx=anc==='end'?ax-r:ax, cy=ay-r*.7, pts=[];
+      var r=Math.min(w,h)*.2, cx=c.form==='egen'?x+w*.40:x+w/2, cy=c.form==='egen'?y+h*.49:y+h/2, pts=[];
       for(var j=0;j<10;j++){var a=-Math.PI/2+j*Math.PI/5, rr=j%2?r*.45:r;pts.push((cx+rr*Math.cos(a)).toFixed(1)+','+(cy+rr*Math.sin(a)).toFixed(1))}
-      el('polygon',{points:pts.join(' '),fill:'none',stroke:'#6B4320','stroke-width':1.8},svg);
+      el('polygon',{points:pts.join(' '),fill:'none',stroke:'#6B4320','stroke-width':2},svg);
     }
   }
 
