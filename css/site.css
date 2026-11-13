@@ -201,7 +201,12 @@ figcaption b{color:var(--ink);font-weight:600}
 .drawings figure img{margin:auto;max-height:320px}
 .drawings figcaption{justify-content:flex-start}
 .drawings .wide{grid-column:1/-1}
-@media (max-width:900px){.drawings{grid-template-columns:1fr}}
+.drawings:has(> .half){grid-template-columns:repeat(2,1fr);align-items:start}
+.drawings figure.photo{padding:0;overflow:hidden}
+.drawings figure.photo.wide{max-width:620px}
+.drawings figure.photo img{max-height:none;width:100%;height:auto}
+.drawings figure.photo figcaption{margin:0;padding:14px 22px 18px}
+@media (max-width:900px){.drawings,.drawings:has(> .half){grid-template-columns:1fr}}
 .info{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:22px}
 .info div{background:var(--sand);border-radius:var(--r);padding:24px 26px}
 .info h3{font-size:16.5px;margin-bottom:6px}
@@ -260,3 +265,52 @@ figcaption b{color:var(--ink);font-weight:600}
   .hero .showcase{order:-1;width:min(210px,52vw);margin:0 auto}
   .hero .archframe{box-shadow:0 30px 50px -30px rgba(43,36,32,.6),0 0 0 1px rgba(43,36,32,.06)}
 }
+
+/* Cutting board configurator */
+.options{padding:56px 0 72px}
+.cfg{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:24px;align-items:start;margin-top:28px}
+.opt-grid{display:grid;gap:14px}
+.opt-row{display:grid;grid-template-columns:130px 1fr;gap:6px 18px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:18px 22px;margin:0;min-width:0}
+.opt-row legend{float:left;font-size:16px;font-weight:600;padding:0;grid-column:1}
+.opt-row .opts{display:flex;flex-wrap:wrap;gap:10px;grid-column:2}
+.opt{position:relative;width:118px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px;padding:10px 6px;border-radius:14px;background:var(--bg);border:2px solid transparent;cursor:pointer;transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--line)}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt:has(input:checked){border-color:var(--oak);background:#FBF4EA}
+.opt:has(input:focus-visible){outline:3px solid var(--oak);outline-offset:2px}
+.opt.off{opacity:.35;cursor:not-allowed}
+.opt svg{width:76px;height:52px;color:var(--ink)}
+.opt .lbl{font-size:13.5px;font-weight:500;line-height:1.3}
+.opt small{font-size:12px;color:var(--muted);line-height:1.35}
+.opt small.p{color:var(--ink);font-weight:600}
+.opt-note{grid-column:2;margin:4px 0 0;font-size:13.5px;color:var(--muted)}
+.cfg-name{grid-column:2;margin-top:6px;max-width:320px}
+.cfg-name[hidden]{display:none}
+.cfg-name label{display:block;font-size:13.5px;font-weight:500;margin-bottom:4px}
+.cfg-name input{width:100%;font:inherit;font-size:15px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+.cfg-preview{position:sticky;top:96px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px 22px;box-shadow:var(--shadow)}
+.cfg-views{display:grid;gap:10px}
+.cfg-views figure{margin:0;position:relative}
+.cfg-views figure[hidden]{display:none}
+.cfg-views svg{width:100%;height:auto;background:var(--sand);border-radius:14px;display:block}
+.cfg-views figcaption{position:absolute;left:10px;top:8px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.cfg-sum{list-style:none;margin:16px 0 0;padding:0;font-size:14px}
+.cfg-sum li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.cfg-sum b{font-weight:600}
+.cfg-sum li>span{color:var(--muted);text-align:right}
+.cfg-price{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 16px;font-size:20px;font-weight:700}
+.cfg-price .k{font-size:14px;font-weight:600;color:var(--muted)}
+.cfg-price #cfg-price{text-align:right}
+.cfg-price #cfg-price span{font-size:15px}
+.cfg-preview .btn{width:100%;justify-content:center}
+.cfg-fine{font-size:12.5px;color:var(--muted);margin:12px 0 0}
+@media (max-width:980px){.cfg{grid-template-columns:1fr}.cfg-preview{position:static}}
+@media (max-width:700px){.opt-row{grid-template-columns:1fr}.opt-row .opts,.opt-note,.cfg-name{grid-column:1}.opt{width:calc(50% - 5px)}}
+/* chosen board on the order page */
+.cfg-card{display:grid;grid-template-columns:200px 1fr;gap:18px;align-items:start;background:var(--sand);border-radius:var(--r);padding:18px 20px;margin:0 0 22px}
+.cfg-card .cfg-views svg{background:var(--paper);border-radius:12px}
+.cfg-card h3{font-size:16px;margin:0 0 4px}
+.cfg-card .cfg-sum{margin-top:6px}
+.cfg-card .cfg-price{font-size:17px;margin:10px 0 4px}
+.cfg-card a{color:var(--oak);font-weight:600;font-size:14px}
+@media (max-width:560px){.cfg-card{grid-template-columns:1fr}}

@@ -22,6 +22,21 @@
   if(!form) return;
   var pre=new URLSearchParams(location.search).get('hva');
   if(pre&&form.hva.querySelector('option[value="'+pre+'"]')) form.hva.value=pre;
+  // chosen cutting board from the configurator (?valg=...)
+  var B=window.WoodArcBoard, board=null;
+  if(B&&new URLSearchParams(location.search).get('valg')){
+    board=B.parse();
+    form.hva.value='skjaerefjoler'; form.treslag.value='eik';
+    var card=document.createElement('div'); card.className='cfg-card';
+    card.innerHTML='<div class="cfg-views"><svg viewBox="0 0 400 290" aria-hidden="true"></svg>'+(board.grep==='fing'?'<svg viewBox="0 0 400 290" aria-hidden="true"></svg>':'')+'</div><div><h3><span lang="nb">Fjøla du har valgt</span><span lang="en">The board you chose</span></h3><ul class="cfg-sum">'+B.summaryHTML(board)+'</ul><p class="cfg-price"><span class="k"><span lang="nb">Pris</span><span lang="en">Price</span></span> <span>'+B.priceHTML(board)+'</span></p><a href="../skjaerefjoler/?'+B.query(board)+'#velg"><span lang="nb">← Endre valgene</span><span lang="en">← Change the options</span></a><p class="cfg-fine"><span lang="nb">Fjøla lages etter dine valg, og har derfor ikke angrerett (angrerettloven § 22 bokstav e).</span><span lang="en">The board is made to your choices, so there is no right of withdrawal (Norwegian Cancellation Act § 22 e).</span></p></div>';
+    form.insertBefore(card,form.firstChild);
+    var sv=card.querySelectorAll('.cfg-views svg'); B.draw(sv[0],board); if(sv[1])B.draw(sv[1],board,'back');
+    var ide=form.ide; ide.removeAttribute('required');
+    var star=ide.closest('.field').querySelector('.req'); if(star) star.remove();
+    ide.setAttribute('data-ph-nb','Noe mer jeg bør vite? F.eks. at det er en gave, eller når du trenger den.');
+    ide.setAttribute('data-ph-en','Anything else I should know? E.g. that it is a gift, or when you need it.');
+    applyLang();
+  }
   var L={
     nb:{subj:'Forespørsel',name:'Navn',contact:'Kontakt',what:'Hva',wood:'Treslag',size:'Størrelse',text:'Tekst',idea:'Idé',when:'Når',hello:'Hei WoodArc,',end:'(Legg gjerne ved bilder eller skisser.)',missing:'Fyll ut feltene merket med *.',copied:'Kopiert!'},
     en:{subj:'Request',name:'Name',contact:'Contact',what:'What',wood:'Wood',size:'Size',text:'Text',idea:'Idea',when:'When',hello:'Hi WoodArc,',end:'(Feel free to attach photos or sketches.)',missing:'Please fill in the fields marked *.',copied:'Copied!'}
@@ -29,7 +44,7 @@
   form.addEventListener('submit',function(e){
     e.preventDefault();
     var t=L[lang()], bad=null;
-    ['navn','kontakt','hva','ide'].forEach(function(n){var f=form[n];var ok=f.value.trim()!=='';f.classList.toggle('invalid',!ok);if(!ok&&!bad)bad=f});
+    (board?['navn','kontakt','hva']:['navn','kontakt','hva','ide']).forEach(function(n){var f=form[n];var ok=f.value.trim()!=='';f.classList.toggle('invalid',!ok);if(!ok&&!bad)bad=f});
     if(bad){bad.focus();alertBox(t.missing);return}
     alertBox('');
     var what=form.hva.options[form.hva.selectedIndex].textContent;
@@ -39,7 +54,8 @@
       form.storrelse.value.trim()?t.size+': '+form.storrelse.value.trim():null,
       form.nar.value.trim()?t.when+': '+form.nar.value.trim():null,
       form.tekst.value.trim()?'\n'+t.text+':\n'+form.tekst.value.trim():null,
-      '\n'+t.idea+':\n'+form.ide.value.trim(),
+      board?'\n'+B.emailLines(board).join('\n'):null,
+      form.ide.value.trim()?'\n'+t.idea+':\n'+form.ide.value.trim():null,
       '\n'+t.name+': '+form.navn.value.trim(),
       t.contact+': '+form.kontakt.value.trim(),
       '',t.end].filter(function(x){return x!==null});
