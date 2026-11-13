@@ -8,6 +8,7 @@
     grep:{fing:['Fingergrep under, i begge ender','Finger grips underneath, both ends'],hull:['Hull til oppheng','Handle hole'],uten:['Uten grep','No grip']},
     renne:{ja:['Med saftrenne','With juice groove'],nei:['Uten saftrenne','Without juice groove']},
     tekst:{uten:['Uten tekst','No text'],navn:['Navn','Name'],logo:['Logo','Logo']},
+    att:{egen:['Legg ved et bilde eller en tegning av formen du ønsker.','Attach a photo or drawing of the shape you want.'],logo:['Legg ved logoen som bilde.','Attach the logo as an image.']},
     head:{form:['Form','Shape'],grep:['Grep','Grip'],renne:['Saftrenne','Juice groove'],tekst:['Tekst','Text'],str:['Størrelse','Size'],price:['Pris','Price'],see:['Se fjøla','See the board'],chosen:['Valgt fjøl','Chosen board'],from:['fra','from'],quote:['endelig pris etter tegning','final price after the drawing']}
   };
   var DEF={form:'rekt',grep:'fing',renne:'ja',tekst:'navn',str:'M',navn:''};
@@ -47,6 +48,10 @@
       [T.head.tekst,[textLine(c,0),textLine(c,1)]],[T.head.str,[c.str+' · '+dims(c)+' × 2,5 cm',c.str+' · '+dims(c)+' × 2.5 cm']]
     ].map(function(r){return '<li><b>'+both(r[0])+'</b><span>'+both(r[1])+'</span></li>'}).join('');
   }
+  function attachHTML(c){
+    var a=[];if(c.form==='egen')a.push(T.att.egen);if(c.tekst==='logo')a.push(T.att.logo);
+    return a.map(function(x){return '<p class="cfg-attach">📎 '+both(x)+'</p>'}).join('');
+  }
   function emailLines(c){
     var l=lang(), base='https://woodarc.no/skjaerefjoler/?';
     var pr=kr(price(c)); if(c.form==='egen')pr=T.head.from[l]+' '+pr+' ('+T.head.quote[l]+')';
@@ -59,7 +64,7 @@
       '- '+T.head.str[l]+': '+c.str+', '+dims(c)+' × '+(l?'2.5':'2,5')+' cm',
       '- '+T.head.price[l]+': '+pr,
       T.head.see[l]+': '+base+query(c)+'#velg'
-    ];
+    ].concat(c.form==='egen'?['','>>> '+T.att.egen[l]]:[]).concat(c.tekst==='logo'?[(c.form==='egen'?'':'\n')+'>>> '+T.att.logo[l]]:[]);
   }
 
   /* ---------- drawing ---------- */
@@ -122,13 +127,13 @@
     }
   }
 
-  window.WoodArcBoard={parse:parse,fix:fix,query:query,draw:draw,summaryHTML:summaryHTML,priceHTML:priceHTML,emailLines:emailLines,dims:dims};
+  window.WoodArcBoard={attachHTML:attachHTML,parse:parse,fix:fix,query:query,draw:draw,summaryHTML:summaryHTML,priceHTML:priceHTML,emailLines:emailLines,dims:dims};
 
   /* ---------- configurator on the cutting board page ---------- */
   var form=document.getElementById('cfg');
   if(!form)return;
   var svg=document.getElementById('cfg-svg'), sum=document.getElementById('cfg-sum'), pr=document.getElementById('cfg-price'),
-      go=document.getElementById('cfg-go'), nameWrap=document.getElementById('cfg-navn-wrap'), nameIn=document.getElementById('cfg-navn'), backFig=document.getElementById('cfg-back'), backSvg=document.getElementById('cfg-svg-back');
+      go=document.getElementById('cfg-go'), nameWrap=document.getElementById('cfg-navn-wrap'), nameIn=document.getElementById('cfg-navn'), backFig=document.getElementById('cfg-back'), backSvg=document.getElementById('cfg-svg-back'), att=document.getElementById('cfg-attach');
   var c=parse();
   function read(){
     KEYS.forEach(function(k){var r=form.querySelector('input[name="'+k+'"]:checked');if(r)c[k]=r.value});
@@ -140,7 +145,7 @@
     fing.disabled=c.form==='egen'; fing.closest('label').classList.toggle('off',fing.disabled);
     nameWrap.hidden=c.tekst!=='navn';
     form.querySelectorAll('[data-dim]').forEach(function(s){var z=s.getAttribute('data-dim');s.textContent=c.form==='rund'?'Ø '+DIA[z]+' cm':DIM[z][0]+' × '+DIM[z][1]+' cm'});
-    draw(svg,c); backFig.hidden=c.grep!=='fing'; if(c.grep==='fing')draw(backSvg,c,'back'); sum.innerHTML=summaryHTML(c); pr.innerHTML=priceHTML(c);
+    draw(svg,c); backFig.hidden=c.grep!=='fing'; if(c.grep==='fing')draw(backSvg,c,'back'); sum.innerHTML=summaryHTML(c); pr.innerHTML=priceHTML(c); att.innerHTML=attachHTML(c);
     go.href='../bestill/?hva=skjaerefjoler&'+query(c);
     try{history.replaceState(null,'','?'+query(c)+location.hash)}catch(e){}
   }

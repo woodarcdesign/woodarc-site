@@ -314,3 +314,4 @@ figcaption b{color:var(--ink);font-weight:600}
 .cfg-card .cfg-price{font-size:17px;margin:10px 0 4px}
 .cfg-card a{color:var(--oak);font-weight:600;font-size:14px}
 @media (max-width:560px){.cfg-card{grid-template-columns:1fr}}
+.cfg-attach{margin:0 0 12px;padding:10px 12px;background:#FBF4EA;border:1px solid var(--oak);border-radius:10px;font-size:13.5px;font-weight:500}
